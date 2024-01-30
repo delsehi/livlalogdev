@@ -1,0 +1,9 @@
+[workspace]
+
+resolver = "2"
+
+members = [
+    "livla_log",
+    "livla_log_cli",
+    "livla_log_flutter_backend",
+]

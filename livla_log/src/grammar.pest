@@ -1,0 +1,54 @@
+/* * Numbers */
+num = @{ int ~ ("." ~ ASCII_DIGIT*)? ~ (^"e" ~ int)? }
+int =  { ("+" | "-")? ~ ASCII_DIGIT+ }
+
+separator = _{ "-" | "/" }
+year      =  { ASCII_DIGIT{4} }
+month     =  { '0'..'1' ~ '0'..'9' }
+day       =  { '0'..'3' ~ ASCII_DIGIT }
+date      =  { day ~ separator? ~ month ~ separator? ~ year }
+
+WHITESPACE = _{ WHITE_SPACE }
+/* Human readable date */
+human_day = { day | '1'..'9' }
+human_month = @{ LETTER+ }
+human_date  =  {
+    human_day ~ human_month ~ year
+}
+
+// Comments
+comment_word = { WHITE_SPACE* ~ ASCII_ALPHANUMERIC+ ~ WHITE_SPACE* }
+// Put inside parenthesis to make comments anywhere
+COMMENT = _{ "(" ~ comment_word* ~ (")") }
+
+weight_unit = { ^"kg" | ^"lbs" }
+
+// If the set was to failure.
+max_rep = { ^"max" }
+
+// 10kg
+weight = { num ~ weight_unit ~ ":"? }
+// Name of an exercise. Deadlift, DL, SQ etc. Used for cardio too.
+lift = { LETTER+ }
+rpe = { ^"rpe" ~ num }
+// Marks that it was a repetition. Ignore commas
+rep = { num ~ ("r" | "x" | ^"reps") ~ ","? ~ rpe? }
+
+distance_unit = { ^"km" | "m" }
+time_unit     = { ^"min" | ^"h" | ^"s" }
+
+// Cardio things.
+distance = { num ~ distance_unit }
+time     = { num ~ time_unit }
+
+cardio_rep = { (distance ~ time) | (time ~ distance) }
+cardio_set = { cardio_rep+ }
+
+single_set    = { weight ~ max_rep? ~ rep+ }
+single_bw_set = { max_rep? ~ rep+ }
+
+set = { lift ~ (single_bw_set+ | single_set+ | cardio_set+) }
+
+session = { (date | human_date ) ~ set* }
+
+file = { SOI ~ session+ ~ EOI }
