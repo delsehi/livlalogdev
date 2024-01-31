@@ -20,14 +20,27 @@ class SettingsController with ChangeNotifier {
   // Allow Widgets to read the user's preferred ThemeMode.
   ThemeMode get themeMode => _themeMode;
 
+  late String _logLocation = "Unknown";
+  String get logLocation => _logLocation;
+
   /// Load the user's settings from the SettingsService. It may load from a
   /// local database or the internet. The controller only knows it can load the
   /// settings from the service.
   Future<void> loadSettings() async {
     _themeMode = await _settingsService.themeMode();
+    _logLocation = await _settingsService.logLocation();
+    print("starting with log location:");
+    print(_logLocation);
 
     // Important! Inform listeners a change has occurred.
     notifyListeners();
+  }
+
+  Future<void> updateLogDirectory(String newLocation) async {
+    print("Updating log directory to");
+    print(newLocation);
+    _logLocation = newLocation;
+    await _settingsService.updateLogLocation(newLocation);
   }
 
   /// Update and persist the ThemeMode based on the user's selection.

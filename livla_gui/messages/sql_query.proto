@@ -1,0 +1,15 @@
+syntax = "proto3";
+package sql_query;
+
+// [RINF:DART-SIGNAL]
+message LogAndQueryInput {
+  string log = 1;
+  string query = 2;
+}
+
+
+// [RINF:RUST-SIGNAL]
+message QueryResultOutput {
+   string json = 1;
+   repeated string schema = 2;
+}

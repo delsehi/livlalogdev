@@ -7,4 +7,6 @@
 -- select * from lifts where rpe is not null
 
 
-SELECT *, EPLEY(weight, reps) as maxrep FROM lifts;
+-- SELECT *, EPLEY(weight, reps) as maxrep FROM lifts;
+
+select lift, sum(weight * reps) total, date from lifts group by date, lift;

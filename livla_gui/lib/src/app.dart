@@ -7,6 +7,7 @@ import 'sample_feature/sample_item_list_view.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 import 'charts/charts.dart';
+import 'editor/editor_view.dart';
 
 /// The Widget that configures your application.
 class MyApp extends StatelessWidget {
@@ -64,6 +65,7 @@ class MyApp extends StatelessWidget {
           // Define a function to handle named routes in order to support
           // Flutter web url navigation and deep linking.
           onGenerateRoute: (RouteSettings routeSettings) {
+            final logLocation = settingsController.logLocation;
             return MaterialPageRoute<void>(
               settings: routeSettings,
               builder: (BuildContext context) {
@@ -71,12 +73,13 @@ class MyApp extends StatelessWidget {
                   case SettingsView.routeName:
                     return SettingsView(controller: settingsController);
                   case ChartsView.routeName:
-                    return const ChartsView();
+                    // return ChartsView(logLocation);
+                    return const Text("Nope wrong");
                   case SampleItemDetailsView.routeName:
                     return const SampleItemDetailsView();
                   case SampleItemListView.routeName:
                   default:
-                    return const SampleItemListView();
+                    return const EditorView();
                 }
               },
             );

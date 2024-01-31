@@ -5,4 +5,5 @@ resolver = "2"
 members = [
     "livla_log",
     "livla_log_cli",
+    "livla_gui/native/hub"
 ]
