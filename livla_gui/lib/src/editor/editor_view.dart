@@ -2,22 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:livla_log/src/charts/charts.dart';
 import 'editor.dart';
 import '../settings/settings_view.dart';
-
-/// Displays a list of SampleItems.
 class EditorView extends StatelessWidget {
   const EditorView({
     super.key,
   });
 
   static const routeName = '/';
-
-  // final List<SampleItem> items;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sample Items'),
+        title: const Text('SQL Query'),
         actions: [
           IconButton(
             icon: const Icon(Icons.data_thresholding_sharp),

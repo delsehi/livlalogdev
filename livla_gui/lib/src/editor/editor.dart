@@ -10,15 +10,17 @@ class LogEditor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return TextField(
-    //   controller: inputController,
-    // );
     return ListView(children: [
-      TextField(
-        controller: inputController,
+      Padding(
+        padding: const EdgeInsets.all(20),
+        child: TextField(
+          keyboardType: TextInputType.multiline,
+          maxLines: null,
+          controller: inputController,
+        ),
       ),
       FloatingActionButton(
-          child: const Text("Query"),
+          child: const Text("Run query"),
           onPressed: () {
             Navigator.push(
                 context,

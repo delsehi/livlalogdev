@@ -14,18 +14,17 @@ class ChartsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     LogAndQueryInput(
             log:
                 // r"C:\Users\DelfiSehidic\Work\Other\livlalog\livla_log_cli\test.txt.bak",
                 logLocation,
-            query:
-                // "SELECT AVG(epley(weight, reps)) as repmax, weight from lifts where weight is not null and reps is not null group by date;")
-                // "SELECT date_part('year', to_timestamp(date)) as time FROM lifts group by date_part('year', to_timestamp(date));"
-                "SELECT * FROM lifts;"
-                // "SELECT epley(weight, reps) repmax, avg(epley(weight, reps)) over (partition by lift) as avgmax, date_trunc('YEAR',date) as year FROM lifts where max_rep = true;")
-        ).sendSignalToRust(null);
+            query: query
+            // "SELECT AVG(epley(weight, reps)) as repmax, weight from lifts where weight is not null and reps is not null group by date;")
+            // "SELECT date_part('year', to_timestamp(date)) as time FROM lifts group by date_part('year', to_timestamp(date));"
 
+            // "SELECT epley(weight, reps) repmax, avg(epley(weight, reps)) over (partition by lift) as avgmax, date_trunc('YEAR',date) as year FROM lifts where max_rep = true;")
+            )
+        .sendSignalToRust(null);
 
     return Scaffold(
         appBar: AppBar(
@@ -72,21 +71,21 @@ class ChartsView extends StatelessWidget {
                           .map((e) => DataColumn(label: Text(e)))
                           .toList(),
                       rows: rows);
-                  var chart = LineChart(LineChartData(lineBarsData: [
-                    LineChartBarData(
-                        spots: lineData
-                            .map((e) => FlSpot(
-                                // (e[headers[0]] as int).toDouble(),
-                                e[headers[1]] is int
-                                    ? (e[headers[1]] as int).toDouble()
-                                    : 10,
-                                e[headers[0]] is double
-                                    ? e[headers[0]]
-                                    : e[headers[0]] is int
-                                        ? (e[headers[0]] as int).toDouble()
-                                        : 2))
-                            .toList())
-                  ]));
+                  // var chart = LineChart(LineChartData(lineBarsData: [
+                  //   LineChartBarData(
+                  //       spots: lineData
+                  //           .map((e) => FlSpot(
+                  //               // (e[headers[0]] as int).toDouble(),
+                  //               e[headers[1]] is int
+                  //                   ? (e[headers[1]] as int).toDouble()
+                  //                   : 10,
+                  //               e[headers[0]] is double
+                  //                   ? e[headers[0]]
+                  //                   : e[headers[0]] is int
+                  //                       ? (e[headers[0]] as int).toDouble()
+                  //                       : 2))
+                  //           .toList())
+                  // ]));
                   var tableView = SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: SingleChildScrollView(
@@ -100,7 +99,6 @@ class ChartsView extends StatelessWidget {
                           padding: const EdgeInsets.all(16), child: tableView),
                     ],
                   );
-                })
-            ));
+                })));
   }
 }

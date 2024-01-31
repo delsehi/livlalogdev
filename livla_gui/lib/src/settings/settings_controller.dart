@@ -20,7 +20,7 @@ class SettingsController with ChangeNotifier {
   // Allow Widgets to read the user's preferred ThemeMode.
   ThemeMode get themeMode => _themeMode;
 
-  late String _logLocation = "Unknown";
+  late String _logLocation = "";
   String get logLocation => _logLocation;
 
   /// Load the user's settings from the SettingsService. It may load from a
